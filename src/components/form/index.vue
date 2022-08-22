@@ -40,6 +40,7 @@ export default {
   },
   methods: {
     login() {
+      // 每次提交都调用KForm的校验方法validate
       this.$refs['loginForm'].validate((valid) => {
         if (valid) {
           alert('submit')

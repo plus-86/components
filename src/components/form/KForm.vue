@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  // 提供KForm的实例，因为数据模型model是放到KForm里往下传的
   provide() {
     return {
       form: this
@@ -25,6 +26,8 @@ export default {
   methods: {
     validate(cb) {
       // 获取所有KFormItem
+      console.log(this.$children)
+      debugger
       const tasks = this.$children
         .filter((item) => item.prop) // 过滤掉没有prop属性的item
         .map(
@@ -34,9 +37,9 @@ export default {
 
       Promise.all(tasks)
         .then(() => {
-          cb(true)
+          cb(true) // 所有校验通过
         })
-        .catch(() => cb(false))
+        .catch(() => cb(false)) // 有校验失败
     }
   }
 }

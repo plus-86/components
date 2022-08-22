@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- label -->
-    <label v-if="label" for="">{{ label }}</label>
+    <label v-if="label">{{ label }}</label>
     <slot> </slot>
     <!-- 校验信息的显示 -->
     <p v-if="error">{{ error }}</p>
@@ -11,6 +11,7 @@
 <script>
 import Schema from 'async-validator' // 校验的库
 export default {
+  inject: ['form'], // 注入KForm实例，可以拿到从KForm注入的数据模型model
   mounted() {
     // 监听KInput派发的validate，当input框内容发生变化，进行内容校验
     this.$parent.$on('validate', () => {
@@ -36,7 +37,6 @@ export default {
       })
     }
   },
-  inject: ['form'],
   data() {
     return {
       error: '' // error是空，校验就是通过的
@@ -47,6 +47,7 @@ export default {
       type: String,
       default: ''
     },
+    // 数据模型对应的key值
     prop: {
       type: String
     }
